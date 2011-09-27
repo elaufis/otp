@@ -466,8 +466,8 @@ write_typed_file(File, Info) ->
   case file:make_dir(TyperAnnDir) of
     {error, Reason} ->
       case Reason of
-	eexist -> %% TypEr dir exists; remove old typer files
-	  ok = file:delete(NewFileName),
+	eexist -> %% TypEr dir exists; try to remove old typer file
+	  file:delete(NewFileName),
 	  write_typed_file(File, Info, NewFileName);
 	enospc ->
 	  Msg = io_lib:format("Not enough space in ~p\n", [Dir]),
